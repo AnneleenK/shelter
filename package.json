@@ -1,22 +1,23 @@
 {
-  "private": true,
   "name": "shelter",
   "version": "1.0.0",
   "description": "Learn express by finishing a simplified real world example",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "cmda-be/shelter",
-  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
-  "files": [
-    "db",
-    "server",
-    "src",
-    "static",
-    "view"
-  ],
+  "scripts": {
+    "start": "node server",
+    "lint:js": "xo",
+    "lint:css": "stylelint src/index.css",
+    "lint:md": "remark . -qf",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:md",
+    "build:js": "browserify -p browser-pack-flat/plugin -p [ common-shakeify -v ] -p bundle-collapser/plugin -g uglifyify src | uglifyjs -cm > static/index.js",
+    "build:css": "postcss src/index.css > static/index.css",
+    "build:md": "remark . -qfo",
+    "build": "npm run build:js && npm run build:css",
+    "test": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js"
+  },
   "dependencies": {
     "ejs": "^2.5.7",
-    "express": "^4.16.2"
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -49,19 +50,18 @@
     "unified": "^6.1.6",
     "xo": "^0.18.2"
   },
-  "scripts": {
-    "start": "node server",
-    "lint:js": "xo",
-    "lint:css": "stylelint src/index.css",
-    "lint:md": "remark . -qf",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:md",
-    "build:js": "browserify -p browser-pack-flat/plugin -p [ common-shakeify -v ] -p bundle-collapser/plugin -g uglifyify src | uglifyjs -cm > static/index.js",
-    "build:css": "postcss src/index.css > static/index.css",
-    "build:md": "remark . -qfo",
-    "build": "npm run build:js && npm run build:css",
-    "test": "node test",
-    "test-coverage": "nyc --reporter lcov tape test.js"
-  },
+  "private": true,
+  "license": "MIT",
+  "keywords": [],
+  "repository": "cmda-be/shelter",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "files": [
+    "db",
+    "server",
+    "src",
+    "static",
+    "view"
+  ],
   "nyc": {
     "check-coverage": true,
     "lines": 100,

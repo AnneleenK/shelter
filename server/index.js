@@ -8,7 +8,7 @@ module.exports = express()
   .set('view engine', 'ejs')
   .set('views', 'view')
   .use(express.static('static'))
-  // TODO: Serve the images in `db/image` on `/image`.
+  .use('/image', express.static(path.join(_dirname,'../db/image')) 
   .get('/', all)
   /* TODO: Other HTTP methods. */
   // .post('/', add)
@@ -29,4 +29,3 @@ function all(req, res) {
   //   json: () => res.json(result),
   //   html: () => res.render('list.ejs', Object.assign({}, result, helpers))
   // })
-}
